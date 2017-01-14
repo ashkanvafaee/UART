@@ -2,8 +2,7 @@
 // Runs on LM4F120/TM4C123
 // Provide functions that initialize ADC0
 
-// Student names: change this to your names or look very silly
-// Last modification date: change this to the last modification date or look very silly
+// Last modified: 5/5/2016
 
 // ADC initialization function 
 // Input: none
