@@ -1,11 +1,9 @@
 ; LCD.s
-; Student names: change this to your names or look very silly
-; Last modification date: change this to the last modification date or look very silly
+; Last modification date: 5/5/2016
 
 ; Runs on LM4F120/TM4C123
 ; Use SSI0 to send an 8-bit code to the ST7735 160x128 pixel LCD.
 
-; As part of Lab 7, students need to implement these LCD_WriteCommand and LCD_WriteData
 ; This driver assumes two low-level LCD functions
 
 ; Backlight (pin 10) connected to +3.3 V
