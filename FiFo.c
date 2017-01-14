@@ -1,13 +1,11 @@
 // FiFo.c
 // Runs on LM4F120/TM4C123
 // Provide functions that implement the Software FiFo Buffer
-// Last Modified: 4/12/2016 
-// Student names: change this to your names or look very silly
-// Last modification date: change this to the last modification date or look very silly
+// Last Modified: 5/5/2016 
 
 #include <stdint.h>
 // Declare state variables for FiFo
-//        size, buffer, put and get indexes
+// size, buffer, put and get indexes
 
 // *********** FiFo_Init**********
 // Initializes a software FIFO of a
@@ -52,7 +50,7 @@ uint32_t FiFo_Put(char data) {
 uint32_t FiFo_Get(char *datapt)
 {
 	if(count==0){
-		return (fail);		// empty
+		return (fail);				// empty
 	}
 	*datapt = fifo[getI];
 	getI=(getI+1)%size;
