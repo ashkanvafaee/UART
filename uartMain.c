@@ -1,8 +1,6 @@
-// Lab9.c
+// UART.c
 // Runs on LM4F120 or TM4C123
-// Student names: change this to your names or look very silly
-// Last modification date: change this to the last modification date or look very silly
-// Last Modified: 4/12/2016 
+// Last Modified: 5/5/2016
 
 // Analog Input connected to PE2=ADC1
 // displays on Sitronox ST7735
@@ -13,7 +11,6 @@
 // * Understand what parts of your main have to move into the UART1_Handler ISR
 // * Rewrite the SysTickHandler
 // * Implement the s/w FiFo on the receiver end 
-//    (we suggest implementing and testing this first)
 
 #include <stdint.h>
 
@@ -94,11 +91,11 @@ void UART1_Handler(){
 
 void PortF_Init(void){
   uint8_t wait2;
-	SYSCTL_RCGCGPIO_R |= 0x20;			//********
+	SYSCTL_RCGCGPIO_R |= 0x20;			
 	wait2++;
 	wait2++;
 	
-	GPIO_PORTF_DIR_R |= 0x0E;		//PF1,2,3, output
+	GPIO_PORTF_DIR_R |= 0x0E;			//PF1,2,3, output
 	GPIO_PORTF_DEN_R |= 0x0E;
 }
 
@@ -124,7 +121,7 @@ int main(void){
 	PortF_Init();
   ADC_Init();    // initialize to sample ADC1
   UART_Init();       // initialize UART
-	ST7735_InitR(INITR_REDTAB);									//0x4000D000,0x4000D044
+	ST7735_InitR(INITR_REDTAB);			//0x4000D000,0x4000D044
 	ST7735_SetCursor(0,0);
   LCD_OutFix(0);
   ST7735_OutString("     cm");
@@ -159,9 +156,9 @@ void SysTick_Handler(void){ // every 25 ms
 	//heartbeat();
 	Mailbox = Convert(Mailbox);
 	
-	UART_OutChar(0x02);						//start of transmission
-	UART_OutChar((Mailbox/1000) + 0x30);		//first digit
-	UART_OutChar(0x2E);								// '.'
+	UART_OutChar(0x02);					//start of transmission
+	UART_OutChar((Mailbox/1000) + 0x30);			//first digit
+	UART_OutChar(0x2E);					// '.'
 	holder = Mailbox%1000;
 	holder = holder/100;
 	UART_OutChar (holder+0x30);				//second digit
@@ -182,7 +179,7 @@ void SysTick_Handler(void){ // every 25 ms
 
 
 uint32_t Status[20];             // entries 0,7,12,19 should be false, others true
-char GetData[10];  // entries 1 2 3 4 5 6 7 8 should be 1 2 3 4 5 6 7 8
+char GetData[10]; 		 // entries 1 2 3 4 5 6 7 8 should be 1 2 3 4 5 6 7 8
 int main_fifo(void){ // Make this main to test FiFo
   FiFo_Init();
   for(;;){
