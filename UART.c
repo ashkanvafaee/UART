@@ -1,9 +1,7 @@
 // UART.c
 // Runs on LM4F120/TM4C123
 // Provide functions that setup and interact with UART
-// Last Modified: 4/12/2016 
-// Student names: change this to your names or look very silly
-// Last modification date: change this to the last modification date or look very silly
+// Last Modified: 5/5/2016
 
 #include <stdint.h>
 #include "tm4c123gh6pm.h"
@@ -24,14 +22,14 @@ void UART_Init(void){
 	UART1_IM_R |= 0x10;			//Arm RXRIS
 	UART1_IFLS_R &= ~38;
 	UART1_IFLS_R |= 0x10;
-	NVIC_PRI1_R = (NVIC_PRI1_R&0xFF00FFFF)|0x00200000;						//bits 21-23 priority 1
+	NVIC_PRI1_R = (NVIC_PRI1_R&0xFF00FFFF)|0x00200000;				//bits 21-23 priority 1
 	NVIC_EN0_R = NVIC_EN0_INT6;							// enable interrupt 6 in NVIC
 	
 	
 	GPIO_PORTC_PCTL_R = (GPIO_PORTC_PCTL_R&=0xFF00FFFF)+0x00220000;//(GPIO_PORTC_PCTL_R&0xFFFFFF00)+0x00000011; // UART
-	GPIO_PORTC_AMSEL_R &= ~0x30; //disable analog function on PC4,5
-	GPIO_PORTC_AFSEL_R |= 0x30; //enable alt function on PC4,5
-	GPIO_PORTC_DEN_R |= 0x30;		// enable digital I/O on PC4,5
+	GPIO_PORTC_AMSEL_R &= ~0x30; 							//disable analog function on PC4,5
+	GPIO_PORTC_AFSEL_R |= 0x30; 							//enable alt function on PC4,5
+	GPIO_PORTC_DEN_R |= 0x30;							// enable digital I/O on PC4,5
 }
 
 
@@ -55,6 +53,6 @@ char UART_InChar(void){
 // Output: char read from UART
 void UART_OutChar(char data){  
 
-	while((UART1_FR_R&0x0020)!=0);			//wait until TXFF is 0
+	while((UART1_FR_R&0x0020)!=0);							//wait until TXFF is 0
 	UART1_DR_R = data;
 }
