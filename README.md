@@ -1,2 +1,2 @@
 # UART
-Networking communication program via UART
+Program designed to transfer data between 2 microcontrollers using UART.
